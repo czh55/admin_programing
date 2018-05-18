@@ -16,8 +16,12 @@ import Pagination   from 'component/pagination/index.jsx';
 import MMUtile      from 'util/mm.jsx';
 import Product      from 'service/product.jsx';
 
+import User      from 'service/user.jsx';
+
+
 const _mm = new MMUtile();
 const _product = new Product();
+const _user = new User();
 
 import './index.scss';
 
@@ -28,11 +32,18 @@ const ProductList = React.createClass({
             listType        : 'list', // list / search
             searchType      : 'productId', // productId / productName
             searchKeyword   : '',
-            pageNum         : 1
+            pageNum         : 1,
+            userId          : 0
         };
     },
     componentDidMount(){
-       this.loadProductList();
+        this.loadProductList();
+        let userInfo = _mm.getStorage('userInfo');
+        if(userInfo){
+            this.setState({
+                userId : userInfo.id || -1
+            });
+        }
     },
     // 加载产品列表
     loadProductList(pageNum){
@@ -49,6 +60,10 @@ const ProductList = React.createClass({
         // 按商品id搜索
         if(listType == 'search' && searchType == "productId"){
             listParam.productId = this.state.searchKeyword;
+        }
+        // 按商品status搜索
+        if(listType == 'search' && searchType == "status"){
+            listParam.status = this.state.searchKeyword;
         }
         // 查询
         _product.getProductList(listParam).then(res => {
@@ -87,7 +102,7 @@ const ProductList = React.createClass({
     setProductStatus(productId, status){
         let currentStatus   = status,
             newStatus       = currentStatus == 1 ? 2 : 1,
-            statusChangeTips= currentStatus == 1 ? '确认要下架该商品？' : '确认要上架该商品？';
+            statusChangeTips= currentStatus == 1 ? '确认要下架该商品？' : currentStatus == 2 ? '确认要上架该商品？' : '确定审核通过商品？';
         if(window.confirm(statusChangeTips)){
             _product.setProductStatus(productId, newStatus).then(res => {
                 // 操作成功提示
@@ -98,8 +113,7 @@ const ProductList = React.createClass({
             });
         }
     },
-    render() {
-        
+    render() {       
         return (
             <div id="page-wrapper">
                 <PageTitle pageTitle="商品管理">
@@ -114,6 +128,7 @@ const ProductList = React.createClass({
                                 <select className="form-control" onChange={this.onSearchTypeChange}>
                                     <option value="productId">按商品id查询</option>
                                     <option value="productName">按商品名称查询</option>
+                                    <option value="status">按商品状态查询</option>
                                 </select>
                             </div>
                             <div className="form-group">
@@ -145,10 +160,15 @@ const ProductList = React.createClass({
                                                 </td>
                                                 <td>{product.price}</td>
                                                 <td>
-                                                    <span>{product.status == 1 ? '在售' : '已下架'}</span>
-                                                    <a className="btn btn-xs btn-warning opear" 
-                                                        data-status={product.status} 
-                                                        onClick={this.setProductStatus.bind(this, product.id, product.status)}>{product.status == 1 ? '下架' : '上架'}</a>
+                                                    <span>{product.status == 1 ? '在售'  : product.status == 2 ? '已下架': '待审核'}</span>
+                                                    {
+                                                        this.state.userId != 1 && product.status == 0 ? 
+                                                        <span></span> :
+                                                        <a className="btn btn-xs btn-warning opear" 
+                                                            data-status={product.status} 
+                                                            onClick={this.setProductStatus.bind(this, product.id, product.status)}>{product.status == 1 ? '下架' : product.status == 2 ? '上架': '审核批准'}</a>
+                                                    }
+                                                    
                                                 </td>
                                                 <td>
                                                     <Link className="opear" to={ '/product/detail/' + product.id}>查看</Link>

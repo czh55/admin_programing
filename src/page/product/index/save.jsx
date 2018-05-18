@@ -213,7 +213,7 @@ const ProductSave = React.createClass({
                 detail              : this.state.detail,
                 price               : this.state.price,
                 stock               : this.state.stock,
-                status              : this.state.status || 1 // 状态为正常
+                status              : this.state.status || 0 // 状态为正常
             },
             checkProduct = this.checkProduct(product);
         // 当为编辑时，添加id字段
