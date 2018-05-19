@@ -11,14 +11,23 @@ import ReactDOM from 'react-dom';
 
 import { Link, IndexLink } from 'react-router';
 
+import MMUtile  from 'util/mm.jsx';
+
+const _mm       = new MMUtile();
+
 const SideNav = React.createClass({
     getInitialState() {
         return {
-            
+            id : ''
         };
     },
     componentDidMount(){
-
+        let userInfo = _mm.getStorage('userInfo');
+        if(userInfo){
+            this.setState({
+                id : userInfo.id || ''
+            });
+        }
     },
     render() {
         return (
@@ -41,7 +50,12 @@ const SideNav = React.createClass({
                                     <Link to="/product" activeClassName="active">商品管理</Link>
                                 </li>
                                 <li>
-                                    <Link to="/product.category" activeClassName="active">品类管理</Link>
+                                    {
+                                        this.state.id == 1 ? 
+                                        <Link to="/product.category" activeClassName="active">品类管理</Link>:
+                                        ""
+                                    }
+                                    
                                 </li>
                             </ul>
                         </li>

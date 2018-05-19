@@ -172,7 +172,8 @@ const ProductList = React.createClass({
                                                 </td>
                                                 <td>
                                                     <Link className="opear" to={ '/product/detail/' + product.id}>查看</Link>
-                                                    <Link className="opear"  to={ '/product/save/' + product.id}>编辑</Link>
+                                                    <Link className="opear" to={ '/product/save/' + product.id}>编辑</Link>
+                                                    <Link className="opear" to={ '/product/result/' + product.id}>结果</Link>
                                                 </td>
                                             </tr>
                                         );
