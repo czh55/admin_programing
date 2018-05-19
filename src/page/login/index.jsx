@@ -79,6 +79,7 @@ const Login = React.createClass({
                                         onChange={this.onInputChange}/>
                                 </div>
                                 <button type="submit" className="btn btn-lg btn-primary btn-block">Login</button>
+                                <a class="link" href="http://localhost:8088/dist/view/sponsor-register.html">没有帐号，去注册>></a>
                             </form>
                         </div>
                     </div>
