@@ -27,6 +27,7 @@ import ProductList          from 'page/product/index/index.jsx';
 import ProductSave          from 'page/product/index/save.jsx';
 import ProductDetail        from 'page/product/index/detail.jsx';
 import ResultSave           from 'page/product/index/result.jsx';
+import code                 from 'page/product/index/code.jsx';
 import ProductCategory      from 'page/product/category/index.jsx';
 import ProductCategoryAdd   from 'page/product/category/add.jsx';
 import OrderList            from 'page/order/index.jsx';
@@ -53,6 +54,7 @@ render(
                 <Route path="save(/:pId)" component={ProductSave}/>
                 <Route path="detail/:pId" component={ProductDetail}/>
                 <Route path="result/:pId" component={ResultSave}/>
+                <Route path="code/:pId" component={code}/>
             </Route>
             
             <Route path="product.category" component={Layout}>
