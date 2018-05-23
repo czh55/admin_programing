@@ -1,10 +1,3 @@
-/*
-* @Author: Rosen
-* @Date:   2017-02-24 15:49:17
-* @Last Modified by:   Rosen
-* @Last Modified time: 2017-04-13 15:59:59
-*/
-
 'use strict';
 
 import MMUtile from 'util/mm.jsx';

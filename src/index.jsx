@@ -1,9 +1,3 @@
-/*
-* @Author: Rosen
-* @Date:   2017-02-09 12:19:54
-* @Last Modified by:   Rosen
-* @Last Modified time: 2017-04-09 22:44:21
-*/
 
 'use strict';
 // react

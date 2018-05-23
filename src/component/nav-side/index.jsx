@@ -1,10 +1,3 @@
-/*
-* @Author: Rosen
-* @Date:   2017-02-11 18:49:48
-* @Last Modified by:   Rosen
-* @Last Modified time: 2017-04-04 20:04:53
-*/
-
 'use strict';
 import React from 'react';
 import ReactDOM from 'react-dom';

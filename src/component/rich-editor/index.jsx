@@ -1,10 +1,3 @@
-/*
-* @Author: Rosen
-* @Date:   2017-02-18 10:47:31
-* @Last Modified by:   Rosen
-* @Last Modified time: 2017-03-02 13:14:47
-*/
-
 'use strict';
 
 import React        from 'react';
