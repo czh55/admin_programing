@@ -2,7 +2,7 @@
 
 import MMUtile from 'util/mm.jsx';
 
-const mm = new MMUtile();
+const _mm = new MMUtile();
 
 export default class User{
     // 检查用于登录的信息是否合法
@@ -26,8 +26,8 @@ export default class User{
     }
     // 登录
     login(userInfo){
-        return mm.request({
-            url     : mm.getServerUrl('/manage/user/login.do'),
+        return _mm.request({
+            url     : _mm.getServerUrl('/manage/user/login.do'),
             method  : 'POST',
             data    : {
                 username : userInfo.username || '',
@@ -37,9 +37,29 @@ export default class User{
     }
     // 退出登录
     logout(){
-        return mm.request({
-            url     : mm.getServerUrl('/user/logout.do'),
+        return _mm.request({
+            url     : _mm.getServerUrl('/user/logout.do'),
             method  : 'POST',
         });
+    }
+
+    getUserList(listParam){
+        if(listParam.listType == 'list'){
+            return _mm.request({
+                url     : _mm.getServerUrl('/manage/user/list.do'),
+                data    : {
+                    pageNum : listParam.pageNum || 1
+                }
+            });
+        }
+        else if(listParam.listType == 'search'){
+            return _mm.request({
+                url     : _mm.getServerUrl('/manage/user/search.do'),
+                data    : {
+                    pageNum : listParam.pageNum || 1,
+                    role    : listParam.role
+                }
+            });
+        } 
     }
 }

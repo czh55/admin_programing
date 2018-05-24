@@ -32,7 +32,7 @@ const ProductCategory = React.createClass({
         }   
     },
     initCategory(categoryId){
-        // 按父id查询对应的品类
+        // 按父id查询对应的类别
         _product.getCategory(categoryId).then(res => {
             this.setState({
                 parentCategoryId : categoryId,
@@ -43,7 +43,7 @@ const ProductCategory = React.createClass({
         });
     },
     onUpdateName(categoryId, categoryName){
-        let newName = window.prompt("请输入新的品类名称", categoryName); 
+        let newName = window.prompt("请输入新的类别名称", categoryName); 
         if(newName){
             // 更新
             _product.updateCategoryName({
@@ -56,17 +56,17 @@ const ProductCategory = React.createClass({
                 _mm.errorTips(errMsg);
             });
         }else{
-            _mm.errorTips('请输入正确的品类名称');
+            _mm.errorTips('请输入正确的类别名称');
         }
     },
     render() {
         return (
             <div id="page-wrapper">
-                <PageTitle pageTitle="品类管理">
+                <PageTitle pageTitle="类别管理">
                     <div className="page-header-right">
                         <Link className="btn btn-primary" to="/product.category/add">
                             <i className="fa fa-plus fa-fw"></i>
-                            <span>添加品类</span>
+                            <span>添加类别</span>
                         </Link>
                     </div>
                 </PageTitle>
@@ -78,8 +78,8 @@ const ProductCategory = React.createClass({
                         <table className="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>品类ID</th>
-                                    <th>品类名称</th>
+                                    <th>类别ID</th>
+                                    <th>类别名称</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -95,7 +95,7 @@ const ProductCategory = React.createClass({
                                             <td>
                                             <a className="opera" onClick={this.onUpdateName.bind(this, category.id, category.name)}>修改名称</a>
                                             {category.parentId == 0 ? 
-                                                <Link to={'/product.category/index/' + category.id} className="opera">查看其子品类</Link>
+                                                <Link to={'/product.category/index/' + category.id} className="opera">查看其子类别</Link>
                                                 : null
                                             }
                                             </td>

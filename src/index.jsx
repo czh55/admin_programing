@@ -64,7 +64,10 @@ render(
                 <Route path="detail/:orderNumber" component={OrderDetail}/>
             </Route>
             {/* user */} 
-            <Route path="user" component={User}/>
+            <Route path="user" component={Layout}>
+                <IndexRedirect to="index" />
+                <Route path="index" component={User}/>
+            </Route>
             {/* without layout */} 
             <Route path="login" component={Login}/>
             <Route path="blank" component={Layout}>

@@ -47,15 +47,15 @@ const ProductList = React.createClass({
             
         listParam.listType  = listType;
         listParam.pageNum   = pageNum || this.state.pageNum;
-        // 按商品名搜索
+        // 按比赛名搜索
         if(listType == 'search' && searchType == "productName"){
             listParam.productName = this.state.searchKeyword;
         }
-        // 按商品id搜索
+        // 按比赛id搜索
         if(listType == 'search' && searchType == "productId"){
             listParam.productId = this.state.searchKeyword;
         }
-        // 按商品status搜索
+        // 按比赛status搜索
         if(listType == 'search' && searchType == "status"){
             listParam.status = this.state.searchKeyword;
         }
@@ -96,7 +96,7 @@ const ProductList = React.createClass({
     setProductStatus(productId, status){
         let currentStatus   = status,
             newStatus       = currentStatus == 1 ? 2 : 1,
-            statusChangeTips= currentStatus == 1 ? '确认要下架该商品？' : currentStatus == 2 ? '确认要上架该商品？' : '确定审核通过商品？';
+            statusChangeTips= currentStatus == 1 ? '确认要下架该比赛？' : currentStatus == 2 ? '确认要上架该比赛？' : '确定审核通过比赛？';
         if(window.confirm(statusChangeTips)){
             _product.setProductStatus(productId, newStatus).then(res => {
                 // 操作成功提示
@@ -110,9 +110,9 @@ const ProductList = React.createClass({
     render() {       
         return (
             <div id="page-wrapper">
-                <PageTitle pageTitle="商品管理">
+                <PageTitle pageTitle="比赛管理">
                     <div className="page-header-right">
-                        <Link className="btn btn-primary" to="/product/save"><i className="fa fa-plus fa-fw"></i>添加商品</Link>
+                        <Link className="btn btn-primary" to="/product/save"><i className="fa fa-plus fa-fw"></i>添加比赛</Link>
                     </div>
                 </PageTitle>
                 <div className="row">
@@ -120,9 +120,9 @@ const ProductList = React.createClass({
                         <div className="form-inline">
                             <div className="form-group">
                                 <select className="form-control" onChange={this.onSearchTypeChange}>
-                                    <option value="productId">按商品id查询</option>
-                                    <option value="productName">按商品名称查询</option>
-                                    <option value="status">按商品状态查询</option>
+                                    <option value="productId">按比赛id查询</option>
+                                    <option value="productName">按比赛名称查询</option>
+                                    <option value="status">按比赛状态查询</option>
                                 </select>
                             </div>
                             <div className="form-group">
