@@ -6,11 +6,11 @@ import { Link }     from 'react-router';
 
 import PageTitle    from 'component/page-title/index.jsx';
 
-import Product      from 'service/product.jsx'
+import Competition      from 'service/competition.jsx'
 
-const _product = new Product();
+const _competition = new Competition();
 
-const ProductCategoryAdd = React.createClass({
+const CompetitionCategoryAdd = React.createClass({
     getInitialState() {
         return {
             pageName        : '所属品类',
@@ -21,7 +21,7 @@ const ProductCategoryAdd = React.createClass({
     },
     componentDidMount: function(){
         // 查询一级品类时，不传id
-        _product.getCategory().then(res => {
+        _competition.getCategory().then(res => {
             this.setState({
                 categoryList: res
             });
@@ -42,12 +42,12 @@ const ProductCategoryAdd = React.createClass({
             return;
         }
         // 请求接口
-        _product.saveCategory({
+        _competition.saveCategory({
             parentId      : this.state.parentId,
             categoryName    : this.state.categoryName
         }).then(res => {
             alert('比赛添加成功');
-            window.location.href='#/product.category/index';
+            window.location.href='#/competition.category/index';
         }, errMsg => {
             alert(errMsg);
         });
@@ -99,4 +99,4 @@ const ProductCategoryAdd = React.createClass({
     }
 });
 
-export default ProductCategoryAdd;
+export default CompetitionCategoryAdd;

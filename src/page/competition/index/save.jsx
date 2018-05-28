@@ -8,14 +8,14 @@ import FileUploader from 'component/file-uploader/index.jsx';
 import RichEditor   from 'component/rich-editor/index.jsx';
 
 import MMUtile from 'util/mm.jsx';
-import Product      from 'service/product.jsx';
+import Competition      from 'service/competition.jsx';
 
 const _mm = new MMUtile();
-const _product = new Product();
+const _competition = new Competition();
 
 import './save.scss';
 
-const ProductSave = React.createClass({
+const CompetitionSave = React.createClass({
     getInitialState() {
         return {
             id                  : this.props.params.pId,
@@ -37,12 +37,12 @@ const ProductSave = React.createClass({
         // 初始化一级分类
         this.loadFirstCategory();
         // 初始化产品
-        this.loadProduct();
+        this.loadCompetition();
     },
     // 加载一级分类
     loadFirstCategory(){
         // 查询一级品类时，不传id
-        _product.getCategory().then(res => {
+        _competition.getCategory().then(res => {
             this.setState({
                 firstCategoryList: res
             });
@@ -57,7 +57,7 @@ const ProductSave = React.createClass({
             return;
         }
         // 查询一级品类时，不传id
-        _product.getCategory(this.state.firstCategoryId).then(res => {
+        _competition.getCategory(this.state.firstCategoryId).then(res => {
             this.setState({
                 secondCategoryList: res
             });
@@ -66,39 +66,39 @@ const ProductSave = React.createClass({
         });
     },
     // 编辑的时候，需要初始化比赛信息
-    loadProduct(){
+    loadCompetition(){
         // 有id参数时，读取比赛信息
         if(this.state.id){
             // 查询一级品类时，不传id
-            _product.getProduct(this.state.id).then(res => {
-                let product = this.productAdapter(res)
-                this.setState(product);
+            _competition.getCompetition(this.state.id).then(res => {
+                let competition = this.competitionAdapter(res)
+                this.setState(competition);
                 // 有二级分类时，load二级列表
-                if(product.firstCategoryId){
+                if(competition.firstCategoryId){
                     this.loadSecondCategory();
                 }
-                this.refs['rich-editor'].setValue(product.detail);
+                this.refs['rich-editor'].setValue(competition.detail);
             }, err => {
                 alert(err.msg || '哪里不对了~');
             });
         }
     },
     // 适配接口返回的数据
-    productAdapter(product){
+    competitionAdapter(competition){
         // 如果父品类是0（根品类），则categoryId作为一级品类
-        let firstCategoryId     = product.parentCategoryId === 0 ? product.categoryId : product.parentCategoryId,
-            secondCategoryId    = product.parentCategoryId === 0 ? '' : product.categoryId;
+        let firstCategoryId     = competition.parentCategoryId === 0 ? competition.categoryId : competition.parentCategoryId,
+            secondCategoryId    = competition.parentCategoryId === 0 ? '' : competition.categoryId;
         return {
-            categoryId          : product.categoryId,
-            name                : product.name,
-            subtitle            : product.subtitle,
-            subImages           : product.subImages.split(','),
-            detail              : product.detail,
-            price               : product.price,
-            stock               : product.stock,
+            categoryId          : competition.categoryId,
+            name                : competition.name,
+            subtitle            : competition.subtitle,
+            subImages           : competition.subImages.split(','),
+            detail              : competition.detail,
+            price               : competition.price,
+            stock               : competition.stock,
             firstCategoryId     : firstCategoryId,
             secondCategoryId    : secondCategoryId,
-            status              : product.status
+            status              : competition.status
         }
     },
     // 普通字段更新
@@ -162,30 +162,30 @@ const ProductSave = React.createClass({
         });
     },
     // 验证要提交的产品信息是否符合规范
-    checkProduct(product){
+    checkCompetition(competition){
         let result = {
             status  : true,
             msg     : '验证通过'
         };
-        if(!product.name){
+        if(!competition.name){
             result = {
                 status  : false,
                 msg     : '请输入比赛名称'
             }
         }
-        if(!product.subtitle){
+        if(!competition.subtitle){
             result = {
                 status  : false,
                 msg     : '请输入比赛描述'
             }
         }
-        if(!product.price){
+        if(!competition.price){
             result = {
                 status  : false,
                 msg     : '请输入比赛价格'
             }
         }
-        if(!product.subtitle){
+        if(!competition.subtitle){
             result = {
                 status  : false,
                 msg     : '请输入比赛描述'
@@ -198,7 +198,7 @@ const ProductSave = React.createClass({
         // 阻止提交
         e.preventDefault();
         // 需要提交的字段
-        let product = {
+        let competition = {
                 categoryId          : this.state.secondCategoryId || this.state.firstCategoryId || 0,
                 name                : this.state.name,
                 subtitle            : this.state.subtitle,
@@ -208,22 +208,22 @@ const ProductSave = React.createClass({
                 stock               : this.state.stock,
                 status              : this.state.status || 0 // 状态为正常
             },
-            checkProduct = this.checkProduct(product);
+            checkCompetition = this.checkCompetition(competition);
         // 当为编辑时，添加id字段
         if(this.state.id){
-            product.id = this.state.id;
+            competition.id = this.state.id;
         }
         // 验证通过后，提交比赛信息
-        if(checkProduct.status){
-            // 保存product
-            _product.saveProduct(product).then(res => {
+        if(checkCompetition.status){
+            // 保存competition
+            _competition.saveCompetition(competition).then(res => {
                 alert(res);
-                window.location.href = '#/product/index';
+                window.location.href = '#/competition/index';
             }, err => {
                 alert(err.msg || '哪里不对了~');
             });
         }else{
-            alert(checkProduct.msg);
+            alert(checkCompetition.msg);
         }
         return false;
     },
@@ -351,4 +351,4 @@ const ProductSave = React.createClass({
     }
 });
 
-export default ProductSave;
+export default CompetitionSave;

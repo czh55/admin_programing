@@ -9,22 +9,22 @@ import RichEditor   from 'component/rich-editor/index.jsx';
 
 import MMUtile      from 'util/mm.jsx';
 import Result       from 'service/result.jsx';
-import Product      from 'service/product.jsx';
+import Competition      from 'service/competition.jsx';
 
 const _mm = new MMUtile();
 const _result = new Result();
-const _product = new Product();
+const _competition = new Competition();
 
 import './result.scss';
 
 const ResultSave = React.createClass({
     getInitialState() {
 
-        //传过来的是productId，而不是id
+        //传过来的是competitionId，而不是id
         return {
             id                  : '',
             SponsorId           : '',
-            productId           : this.props.params.pId,
+            competitionId           : this.props.params.pId,
             title               : '',
             detail              : ''
         };
@@ -36,7 +36,7 @@ const ResultSave = React.createClass({
     },
     // 编辑的时候，需要初始化结果信息
     loadResult(){
-        _result.getResult(this.state.productId).then(res => {
+        _result.getResult(this.state.competitionId).then(res => {
             let result = this.resultAdapter(res)
             
             this.setState(result);
@@ -92,7 +92,7 @@ const ResultSave = React.createClass({
         e.preventDefault();
         // 需要提交的字段
         let result = {
-                productId           : this.state.productId,
+                competitionId           : this.state.competitionId,
                 title               : this.state.title,
                 detail              : this.state.detail
             },
@@ -103,7 +103,7 @@ const ResultSave = React.createClass({
             result.sponsorId = this.state.sponsorId;
         }
         else{
-            _product.getProduct(result.productId).then(res => {
+            _competition.getCompetition(result.competitionId).then(res => {
                 result.sponsorId = res.sponsorId;
             }, err => {
                 alert(err.msg || '哪里不对了~');
@@ -114,7 +114,7 @@ const ResultSave = React.createClass({
             // 保存result
             _result.saveResult(result).then(res => {
                 alert(res);
-                window.location.href = '#/product/index';
+                window.location.href = '#/competition/index';
             }, err => {
                 alert(err.msg || '哪里不对了~11');
             });

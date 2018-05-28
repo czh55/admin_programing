@@ -23,7 +23,7 @@ const CodeList = React.createClass({
     getInitialState() {
         return {
             list            : [],
-            productId       : this.props.params.pId,
+            competitionId       : this.props.params.pId,
             pageNum         : 1,
             username        : ''
         };
@@ -36,7 +36,7 @@ const CodeList = React.createClass({
         let listParam       = {};
             
         listParam.pageNum   = pageNum || this.state.pageNum;
-        listParam.productId = this.state.productId;
+        listParam.competitionId = this.state.competitionId;
         // 查询
         _code.getCodeList(listParam).then(res => {
             console.log(res)

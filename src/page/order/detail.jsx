@@ -46,7 +46,7 @@ const OrderDetail = React.createClass({
         }
     },
     render() {
-        let productList     = this.state.orderInfo.orderItemVoList  || [],
+        let competitionList     = this.state.orderInfo.orderItemVoList  || [],
             receiverInfo    = this.state.orderInfo.shippingVo       || {}
         return (
             <div id="page-wrapper">
@@ -117,16 +117,16 @@ const OrderDetail = React.createClass({
                                     </thead>
                                     <tbody>
                                         {
-                                            productList.map((product, index) => {
+                                            competitionList.map((competition, index) => {
                                                 return (
                                                     <tr key={index}>
                                                         <td>
-                                                            <img className="p-img" src={this.state.orderInfo.imageHost + product.productImage} alt={product.productName}/>
+                                                            <img className="p-img" src={this.state.orderInfo.imageHost + competition.competitionImage} alt={competition.competitionName}/>
                                                         </td>
-                                                        <td>{product.productName}</td>
-                                                        <td>￥{product.currentUnitPrice}</td>
-                                                        <td>{product.quantity}</td>
-                                                        <td>￥{product.totalPrice}</td>
+                                                        <td>{competition.competitionName}</td>
+                                                        <td>￥{competition.currentUnitPrice}</td>
+                                                        <td>{competition.quantity}</td>
+                                                        <td>￥{competition.totalPrice}</td>
                                                     </tr>
                                                 )
                                             })

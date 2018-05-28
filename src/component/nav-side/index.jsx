@@ -40,12 +40,12 @@ const SideNav = React.createClass({
                             </Link>
                             <ul className="nav nav-second-level collapse in">
                                 <li>
-                                    <Link to="/product" activeClassName="active">比赛管理</Link>
+                                    <Link to="/competition" activeClassName="active">比赛管理</Link>
                                 </li>
                                 <li>
                                     {
                                         this.state.id == 1 ? 
-                                        <Link to="/product.category" activeClassName="active">类别管理</Link>:
+                                        <Link to="/competition.category" activeClassName="active">类别管理</Link>:
                                         ""
                                     }
                                     

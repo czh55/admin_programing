@@ -7,13 +7,13 @@ import { Link }     from 'react-router';
 import PageTitle    from 'component/page-title/index.jsx';
 
 import MMUtile      from 'util/mm.jsx';
-import Product      from 'service/product.jsx';
+import Competition      from 'service/competition.jsx';
 
 const _mm = new MMUtile();
-const _product = new Product();
+const _competition = new Competition();
 
 
-const ProductDetail = React.createClass({
+const CompetitionDetail = React.createClass({
     getInitialState() {
         return {
             id                  : this.props.params.pId,
@@ -35,12 +35,12 @@ const ProductDetail = React.createClass({
         // 初始化一级分类
         this.loadFirstCategory();
         // 初始化产品
-        this.loadProduct();
+        this.loadCompetition();
     },
     // 加载一级分类
     loadFirstCategory(){
         // 查询一级品类时，不传id
-        _product.getCategory().then(res => {
+        _competition.getCategory().then(res => {
             this.setState({
                 firstCategoryList: res
             });
@@ -55,7 +55,7 @@ const ProductDetail = React.createClass({
             return;
         }
         // 查询一级品类时，不传id
-        _product.getCategory(this.state.firstCategoryId).then(res => {
+        _competition.getCategory(this.state.firstCategoryId).then(res => {
             this.setState({
                 secondCategoryList  : res,
                 secondCategoryId    : this.state.secondCategoryId
@@ -65,15 +65,15 @@ const ProductDetail = React.createClass({
         });
     },
     // 编辑的时候，需要初始化比赛信息
-    loadProduct(){
+    loadCompetition(){
         // 有id参数时，读取比赛信息
         if(this.state.id){
             // 查询一级品类时，不传id
-            _product.getProduct(this.state.id).then(res => {
-                let product = this.productAdapter(res)
-                this.setState(product);
+            _competition.getCompetition(this.state.id).then(res => {
+                let competition = this.competitionAdapter(res)
+                this.setState(competition);
                 // 有二级分类时，load二级列表
-                if(product.firstCategoryId){
+                if(competition.firstCategoryId){
                     this.loadSecondCategory();
                 }
             }, err => {
@@ -82,21 +82,21 @@ const ProductDetail = React.createClass({
         }
     },
     // 适配接口返回的数据
-    productAdapter(product){
+    competitionAdapter(competition){
         // 如果父品类是0（根品类），则categoryId作为一级品类
-        let firstCategoryId     = product.parentCategoryId === 0 ? product.categoryId : product.parentCategoryId,
-            secondCategoryId    = product.parentCategoryId === 0 ? '' : product.categoryId;
+        let firstCategoryId     = competition.parentCategoryId === 0 ? competition.categoryId : competition.parentCategoryId,
+            secondCategoryId    = competition.parentCategoryId === 0 ? '' : competition.categoryId;
         return {
-            categoryId          : product.categoryId,
-            name                : product.name,
-            subtitle            : product.subtitle,
-            subImages           : product.subImages.split(','),
-            detail              : product.detail,
-            price               : product.price,
-            stock               : product.stock,
+            categoryId          : competition.categoryId,
+            name                : competition.name,
+            subtitle            : competition.subtitle,
+            subImages           : competition.subImages.split(','),
+            detail              : competition.detail,
+            price               : competition.price,
+            stock               : competition.stock,
             firstCategoryId     : firstCategoryId,
             secondCategoryId    : secondCategoryId,
-            status              : product.status
+            status              : competition.status
         }
     },
     render() {
@@ -205,4 +205,4 @@ const ProductDetail = React.createClass({
     }
 });
 
-export default ProductDetail;
+export default CompetitionDetail;

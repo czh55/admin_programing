@@ -17,13 +17,13 @@ import 'node_modules/font-awesome/css/font-awesome.min.css';
 // 页面
 import Layout               from 'page/layout/index.jsx';
 import Home                 from 'page/home/index.jsx';
-import ProductList          from 'page/product/index/index.jsx';
-import ProductSave          from 'page/product/index/save.jsx';
-import ProductDetail        from 'page/product/index/detail.jsx';
-import ResultSave           from 'page/product/index/result.jsx';
-import code                 from 'page/product/index/code.jsx';
-import ProductCategory      from 'page/product/category/index.jsx';
-import ProductCategoryAdd   from 'page/product/category/add.jsx';
+import CompetitionList          from 'page/competition/index/index.jsx';
+import CompetitionSave          from 'page/competition/index/save.jsx';
+import CompetitionDetail        from 'page/competition/index/detail.jsx';
+import ResultSave           from 'page/competition/index/result.jsx';
+import code                 from 'page/competition/index/code.jsx';
+import CompetitionCategory      from 'page/competition/category/index.jsx';
+import CompetitionCategoryAdd   from 'page/competition/category/add.jsx';
 import OrderList            from 'page/order/index.jsx';
 import OrderDetail          from 'page/order/detail.jsx';
 import User                 from 'page/user/index.jsx';
@@ -41,20 +41,20 @@ render(
                 <IndexRedirect to="index" />
                 <Route path="index" component={Home}/>
             </Route>
-            {/* product */} 
-            <Route path="product" component={Layout}>
+            {/* competition */} 
+            <Route path="competition" component={Layout}>
                 <IndexRedirect to="index" />
-                <Route path="index" component={ProductList}/>
-                <Route path="save(/:pId)" component={ProductSave}/>
-                <Route path="detail/:pId" component={ProductDetail}/>
+                <Route path="index" component={CompetitionList}/>
+                <Route path="save(/:pId)" component={CompetitionSave}/>
+                <Route path="detail/:pId" component={CompetitionDetail}/>
                 <Route path="result/:pId" component={ResultSave}/>
                 <Route path="code/:pId" component={code}/>
             </Route>
             
-            <Route path="product.category" component={Layout}>
+            <Route path="competition.category" component={Layout}>
                 <IndexRedirect to="index" />
-                <Route path="index(/:categoryId)" component={ProductCategory}/>
-                <Route path="add" component={ProductCategoryAdd}/>
+                <Route path="index(/:categoryId)" component={CompetitionCategory}/>
+                <Route path="add" component={CompetitionCategoryAdd}/>
             </Route>
 
             {/* order */} 

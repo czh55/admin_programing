@@ -6,10 +6,10 @@ import { Link }     from 'react-router';
 
 import PageTitle    from 'component/page-title/index.jsx';
 
-import Product      from 'service/product.jsx'
-const _product  = new Product();
+import Competition      from 'service/competition.jsx'
+const _competition  = new Competition();
 
-const ProductCategory = React.createClass({
+const CompetitionCategory = React.createClass({
     getInitialState() {
         return {
             
@@ -23,7 +23,7 @@ const ProductCategory = React.createClass({
             <div id="page-wrapper">
                 <PageTitle pageTitle="品类管理">
                     <div className="page-header-right">
-                        <Link className="btn btn-primary" to="/product.category/add">
+                        <Link className="btn btn-primary" to="/competition.category/add">
                             <i className="fa fa-plus fa-fw"></i>
                             <span>Button</span>
                         </Link>
@@ -39,4 +39,4 @@ const ProductCategory = React.createClass({
     }
 });
 
-export default ProductCategory;
+export default CompetitionCategory;

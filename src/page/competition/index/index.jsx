@@ -8,30 +8,30 @@ import PageTitle    from 'component/page-title/index.jsx';
 import Pagination   from 'component/pagination/index.jsx';
 
 import MMUtile      from 'util/mm.jsx';
-import Product      from 'service/product.jsx';
+import Competition      from 'service/competition.jsx';
 
 import User      from 'service/user.jsx';
 
 
 const _mm = new MMUtile();
-const _product = new Product();
+const _competition = new Competition();
 const _user = new User();
 
 import './index.scss';
 
-const ProductList = React.createClass({
+const CompetitionList = React.createClass({
     getInitialState() {
         return {
             list            : [],
             listType        : 'list', // list / search
-            searchType      : 'productId', // productId / productName
+            searchType      : 'competitionId', // competitionId / competitionName
             searchKeyword   : '',
             pageNum         : 1,
             userId          : 0
         };
     },
     componentDidMount(){
-        this.loadProductList();
+        this.loadCompetitionList();
         let userInfo = _mm.getStorage('userInfo');
         if(userInfo){
             this.setState({
@@ -40,7 +40,7 @@ const ProductList = React.createClass({
         }
     },
     // 加载产品列表
-    loadProductList(pageNum){
+    loadCompetitionList(pageNum){
         let listParam       = {},
             listType        = this.state.listType,
             searchType      = this.state.searchType;
@@ -48,19 +48,19 @@ const ProductList = React.createClass({
         listParam.listType  = listType;
         listParam.pageNum   = pageNum || this.state.pageNum;
         // 按比赛名搜索
-        if(listType == 'search' && searchType == "productName"){
-            listParam.productName = this.state.searchKeyword;
+        if(listType == 'search' && searchType == "competitionName"){
+            listParam.competitionName = this.state.searchKeyword;
         }
         // 按比赛id搜索
-        if(listType == 'search' && searchType == "productId"){
-            listParam.productId = this.state.searchKeyword;
+        if(listType == 'search' && searchType == "competitionId"){
+            listParam.competitionId = this.state.searchKeyword;
         }
         // 按比赛status搜索
         if(listType == 'search' && searchType == "status"){
             listParam.status = this.state.searchKeyword;
         }
         // 查询
-        _product.getProductList(listParam).then(res => {
+        _competition.getCompetitionList(listParam).then(res => {
             console.log(res)
             this.setState(res);
         }, err => {
@@ -86,22 +86,22 @@ const ProductList = React.createClass({
         this.setState({
             listType    : 'search'
         }, () => {
-            this.loadProductList(1);
+            this.loadCompetitionList(1);
         });
     },
     // 页数变化
     onPageNumChange(pageNum){
-        this.loadProductList(pageNum);
+        this.loadCompetitionList(pageNum);
     },
-    setProductStatus(productId, status){
+    setCompetitionStatus(competitionId, status){
         let currentStatus   = status,
             newStatus       = currentStatus == 1 ? 2 : 1,
             statusChangeTips= currentStatus == 1 ? '确认要下架该比赛？' : currentStatus == 2 ? '确认要上架该比赛？' : '确定审核通过比赛？';
         if(window.confirm(statusChangeTips)){
-            _product.setProductStatus(productId, newStatus).then(res => {
+            _competition.setCompetitionStatus(competitionId, newStatus).then(res => {
                 // 操作成功提示
                 _mm.successTips(res);
-                this.loadProductList();
+                this.loadCompetitionList();
             }, err => {
                 _mm.errorTips(err.msg);
             });
@@ -112,7 +112,7 @@ const ProductList = React.createClass({
             <div id="page-wrapper">
                 <PageTitle pageTitle="比赛管理">
                     <div className="page-header-right">
-                        <Link className="btn btn-primary" to="/product/save"><i className="fa fa-plus fa-fw"></i>添加比赛</Link>
+                        <Link className="btn btn-primary" to="/competition/save"><i className="fa fa-plus fa-fw"></i>添加比赛</Link>
                     </div>
                 </PageTitle>
                 <div className="row">
@@ -120,8 +120,8 @@ const ProductList = React.createClass({
                         <div className="form-inline">
                             <div className="form-group">
                                 <select className="form-control" onChange={this.onSearchTypeChange}>
-                                    <option value="productId">按比赛id查询</option>
-                                    <option value="productName">按比赛名称查询</option>
+                                    <option value="competitionId">按比赛id查询</option>
+                                    <option value="competitionName">按比赛名称查询</option>
                                     <option value="status">按比赛状态查询</option>
                                 </select>
                             </div>
@@ -144,31 +144,31 @@ const ProductList = React.createClass({
                             </thead>
                             <tbody>
                                 {
-                                    this.state.list.length ? this.state.list.map((product, index) => {
+                                    this.state.list.length ? this.state.list.map((competition, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td>{product.id}</td>
+                                                <td>{competition.id}</td>
                                                 <td>
-                                                    <p>{product.name}</p>
-                                                    <p>{product.subtitle}</p>
+                                                    <p>{competition.name}</p>
+                                                    <p>{competition.subtitle}</p>
                                                 </td>
-                                                <td>{product.price}</td>
+                                                <td>{competition.price}</td>
                                                 <td>
-                                                    <span>{product.status == 1 ? '在售'  : product.status == 2 ? '已下架': '待审核'}</span>
+                                                    <span>{competition.status == 1 ? '在售'  : competition.status == 2 ? '已下架': '待审核'}</span>
                                                     {
-                                                        this.state.userId != 1 && product.status == 0 ? 
+                                                        this.state.userId != 1 && competition.status == 0 ? 
                                                         <span></span> :
                                                         <a className="btn btn-xs btn-warning opear" 
-                                                            data-status={product.status} 
-                                                            onClick={this.setProductStatus.bind(this, product.id, product.status)}>{product.status == 1 ? '下架' : product.status == 2 ? '上架': '审核批准'}</a>
+                                                            data-status={competition.status} 
+                                                            onClick={this.setCompetitionStatus.bind(this, competition.id, competition.status)}>{competition.status == 1 ? '下架' : competition.status == 2 ? '上架': '审核批准'}</a>
                                                     }
                                                     
                                                 </td>
                                                 <td>
-                                                    <Link className="opear" to={ '/product/detail/' + product.id}>查看</Link>
-                                                    <Link className="opear" to={ '/product/save/' + product.id}>编辑</Link>
-                                                    <Link className="opear" to={ '/product/result/' + product.id}>结果</Link>
-                                                    <Link className="opear" to={ '/product/code/' + product.id}>代码</Link>
+                                                    <Link className="opear" to={ '/competition/detail/' + competition.id}>查看</Link>
+                                                    <Link className="opear" to={ '/competition/save/' + competition.id}>编辑</Link>
+                                                    <Link className="opear" to={ '/competition/result/' + competition.id}>结果</Link>
+                                                    <Link className="opear" to={ '/competition/code/' + competition.id}>代码</Link>
                                                 </td>
                                             </tr>
                                         );
@@ -195,4 +195,4 @@ const ProductList = React.createClass({
     }
 });
 
-export default ProductList;
+export default CompetitionList;

@@ -8,12 +8,12 @@ import './index.scss';
 import MMUtile      from 'util/mm.jsx';
 import PageTitle    from 'component/page-title/index.jsx';
 
-import Product      from 'service/product.jsx';
+import Competition      from 'service/competition.jsx';
 
 const _mm = new MMUtile();
-const _product  = new Product();
+const _competition  = new Competition();
 
-const ProductCategory = React.createClass({
+const CompetitionCategory = React.createClass({
     getInitialState() {
         return {
             parentCategoryId    : this.props.params.categoryId || 0,
@@ -33,7 +33,7 @@ const ProductCategory = React.createClass({
     },
     initCategory(categoryId){
         // 按父id查询对应的类别
-        _product.getCategory(categoryId).then(res => {
+        _competition.getCategory(categoryId).then(res => {
             this.setState({
                 parentCategoryId : categoryId,
                 categoryList: res
@@ -46,7 +46,7 @@ const ProductCategory = React.createClass({
         let newName = window.prompt("请输入新的类别名称", categoryName); 
         if(newName){
             // 更新
-            _product.updateCategoryName({
+            _competition.updateCategoryName({
                 categoryId : categoryId,
                 categoryName : newName
             }).then(res => {
@@ -64,7 +64,7 @@ const ProductCategory = React.createClass({
             <div id="page-wrapper">
                 <PageTitle pageTitle="类别管理">
                     <div className="page-header-right">
-                        <Link className="btn btn-primary" to="/product.category/add">
+                        <Link className="btn btn-primary" to="/competition.category/add">
                             <i className="fa fa-plus fa-fw"></i>
                             <span>添加类别</span>
                         </Link>
@@ -95,7 +95,7 @@ const ProductCategory = React.createClass({
                                             <td>
                                             <a className="opera" onClick={this.onUpdateName.bind(this, category.id, category.name)}>修改名称</a>
                                             {category.parentId == 0 ? 
-                                                <Link to={'/product.category/index/' + category.id} className="opera">查看其子类别</Link>
+                                                <Link to={'/competition.category/index/' + category.id} className="opera">查看其子类别</Link>
                                                 : null
                                             }
                                             </td>
@@ -112,4 +112,4 @@ const ProductCategory = React.createClass({
     }
 });
 
-export default ProductCategory;
+export default CompetitionCategory;

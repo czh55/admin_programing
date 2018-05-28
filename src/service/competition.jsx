@@ -4,22 +4,22 @@ import MMUtile from 'util/mm.jsx';
 
 const _mm = new MMUtile();
 
-export default class Product{
+export default class Competition{
     
-    // 获取商品信息
-    getProduct(productId){
+    // 获取比赛信息
+    getCompetition(competitionId){
         return _mm.request({
-            url     : _mm.getServerUrl('/manage/product/detail.do'),
+            url     : _mm.getServerUrl('/manage/competition/detail.do'),
             data    : {
-                productId : productId || 0
+                competitionId : competitionId || 0
             }
         });
     }
-    // 获取商品信息
-    getProductList(listParam){
+    // 获取比赛信息
+    getCompetitionList(listParam){
         if(listParam.listType == 'list'){
             return _mm.request({
-                url     : _mm.getServerUrl('/manage/product/list.do'),
+                url     : _mm.getServerUrl('/manage/competition/list.do'),
                 data    : {
                     pageNum : listParam.pageNum || 1
                 }
@@ -27,25 +27,25 @@ export default class Product{
         }
         else if(listParam.listType == 'search'){
             return _mm.request({
-                url     : _mm.getServerUrl('/manage/product/search.do'),
+                url     : _mm.getServerUrl('/manage/competition/search.do'),
                 data    : listParam
             });
         }
             
     }
-    // 获取商品信息
-    saveProduct(product){
+    // 获取比赛信息
+    saveCompetition(competition){
         return _mm.request({
-            url     : _mm.getServerUrl('/manage/product/save.do'),
-            data    : product
+            url     : _mm.getServerUrl('/manage/competition/save.do'),
+            data    : competition
         });
     }
-    // 改变商品状态
-    setProductStatus(productId, status){
+    // 改变比赛状态
+    setCompetitionStatus(competitionId, status){
         return _mm.request({
-            url     : _mm.getServerUrl('/manage/product/set_sale_status.do'),
+            url     : _mm.getServerUrl('/manage/competition/set_sale_status.do'),
             data    : {
-                productId   : productId,
+                competitionId   : competitionId,
                 status      : status
             }
         });
