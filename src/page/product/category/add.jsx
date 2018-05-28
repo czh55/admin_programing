@@ -46,7 +46,7 @@ const ProductCategoryAdd = React.createClass({
             parentId      : this.state.parentId,
             categoryName    : this.state.categoryName
         }).then(res => {
-            alert('商品添加成功');
+            alert('比赛添加成功');
             window.location.href='#/product.category/index';
         }, errMsg => {
             alert(errMsg);

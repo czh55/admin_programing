@@ -65,9 +65,9 @@ const ProductSave = React.createClass({
             alert(err.msg || '哪里不对了~');
         });
     },
-    // 编辑的时候，需要初始化商品信息
+    // 编辑的时候，需要初始化比赛信息
     loadProduct(){
-        // 有id参数时，读取商品信息
+        // 有id参数时，读取比赛信息
         if(this.state.id){
             // 查询一级品类时，不传id
             _product.getProduct(this.state.id).then(res => {
@@ -170,25 +170,25 @@ const ProductSave = React.createClass({
         if(!product.name){
             result = {
                 status  : false,
-                msg     : '请输入商品名称'
+                msg     : '请输入比赛名称'
             }
         }
         if(!product.subtitle){
             result = {
                 status  : false,
-                msg     : '请输入商品描述'
+                msg     : '请输入比赛描述'
             }
         }
         if(!product.price){
             result = {
                 status  : false,
-                msg     : '请输入商品价格'
+                msg     : '请输入比赛价格'
             }
         }
         if(!product.subtitle){
             result = {
                 status  : false,
-                msg     : '请输入商品描述'
+                msg     : '请输入比赛描述'
             }
         }
         return result;
@@ -213,7 +213,7 @@ const ProductSave = React.createClass({
         if(this.state.id){
             product.id = this.state.id;
         }
-        // 验证通过后，提交商品信息
+        // 验证通过后，提交比赛信息
         if(checkProduct.status){
             // 保存product
             _product.saveProduct(product).then(res => {
@@ -230,30 +230,30 @@ const ProductSave = React.createClass({
     render() {
         return (
             <div id="page-wrapper">
-                <PageTitle pageTitle={'商品管理 -- ' + (this.state.id ? '修改商品' : '添加商品')}/>
+                <PageTitle pageTitle={'比赛管理 -- ' + (this.state.id ? '修改比赛' : '添加比赛')}/>
                 <div className="row">
                     <div className="form-wrap col-lg-12">
                         <div className="form-horizontal">
                             <div className="form-group">
-                                <label htmlFor="name" className="col-md-2 control-label">商品名称</label>
+                                <label htmlFor="name" className="col-md-2 control-label">比赛名称</label>
                                 <div className="col-md-5">
                                     <input type="text" 
                                         className="form-control"
                                         name="name"
                                         id="name"
-                                        placeholder="请输入商品名称"
+                                        placeholder="请输入比赛名称"
                                         value={this.state.name}
                                         onChange={this.onValueChange}/>
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="subtitle" className="col-md-2 control-label">商品描述</label>
+                                <label htmlFor="subtitle" className="col-md-2 control-label">比赛描述</label>
                                 <div className="col-md-5">
                                     <input type="text"
                                         className="form-control"
                                         name="subtitle"
                                         id="subtitle"
-                                        placeholder="请输入商品描述"
+                                        placeholder="请输入比赛描述"
                                         value={this.state.subtitle}
                                         onChange={this.onValueChange}/>
                                 </div>
@@ -286,7 +286,7 @@ const ProductSave = React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="price" className="col-md-2 control-label">商品价格</label>
+                                <label htmlFor="price" className="col-md-2 control-label">比赛价格</label>
                                 <div className="col-md-3">
                                     <div className="input-group">
                                         <input type="number" 
@@ -301,7 +301,7 @@ const ProductSave = React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="stock" className="col-md-2 control-label">商品库存</label>
+                                <label htmlFor="stock" className="col-md-2 control-label">比赛库存</label>
                                 <div className="col-md-3">
                                     <div className="input-group">
                                         <input type="number" 
@@ -316,7 +316,7 @@ const ProductSave = React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="inputEmail3" className="col-md-2 control-label">商品图片</label>
+                                <label htmlFor="inputEmail3" className="col-md-2 control-label">比赛图片</label>
                                 <div className="img-con col-md-10">
                                     {
                                         this.state.subImages.length ? this.state.subImages.map((image, index) => {
@@ -334,9 +334,9 @@ const ProductSave = React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="inputEmail3" className="col-md-2 control-label">商品详情</label>
+                                <label htmlFor="inputEmail3" className="col-md-2 control-label">比赛详情</label>
                                 <div className="col-md-10">
-                                    <RichEditor ref="rich-editor" onValueChange={this.onRichValueChange} placeholder="商品详细信息"/>
+                                    <RichEditor ref="rich-editor" onValueChange={this.onRichValueChange} placeholder="比赛详细信息"/>
                                 </div>
                             </div>
                             <div className="form-group">

@@ -64,9 +64,9 @@ const ProductDetail = React.createClass({
             alert(err.msg || '哪里不对了~');
         });
     },
-    // 编辑的时候，需要初始化商品信息
+    // 编辑的时候，需要初始化比赛信息
     loadProduct(){
-        // 有id参数时，读取商品信息
+        // 有id参数时，读取比赛信息
         if(this.state.id){
             // 查询一级品类时，不传id
             _product.getProduct(this.state.id).then(res => {
@@ -102,18 +102,18 @@ const ProductDetail = React.createClass({
     render() {
         return (
             <div id="page-wrapper">
-                <PageTitle pageTitle="商品详情"/>
+                <PageTitle pageTitle="比赛详情"/>
                 <div className="row">
                     <div className="form-wrap col-lg-12">
                         <div className="form-horizontal">
                             <div className="form-group">
-                                <label htmlFor="name" className="col-md-2 control-label">商品名称</label>
+                                <label htmlFor="name" className="col-md-2 control-label">比赛名称</label>
                                 <div className="col-md-5">
                                     <p type="text" className="form-control-static">{this.state.name}</p>
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="subtitle" className="col-md-2 control-label">商品描述</label>
+                                <label htmlFor="subtitle" className="col-md-2 control-label">比赛描述</label>
                                 <div className="col-md-5">
                                     <p type="text" className="form-control-static">{this.state.subtitle}</p>
                                 </div>
@@ -152,7 +152,7 @@ const ProductDetail = React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="price" className="col-md-2 control-label">商品价格</label>
+                                <label htmlFor="price" className="col-md-2 control-label">比赛价格</label>
                                 <div className="col-md-3">
                                     <div className="input-group">
                                         <input type="number" 
@@ -166,7 +166,7 @@ const ProductDetail = React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="stock" className="col-md-2 control-label">商品库存</label>
+                                <label htmlFor="stock" className="col-md-2 control-label">比赛库存</label>
                                 <div className="col-md-3">
                                     <div className="input-group">
                                         <input type="number" 
@@ -180,7 +180,7 @@ const ProductDetail = React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="inputEmail3" className="col-md-2 control-label">商品图片</label>
+                                <label htmlFor="inputEmail3" className="col-md-2 control-label">比赛图片</label>
                                 <div className="img-con col-md-10">
                                     {
                                         this.state.subImages.length ? this.state.subImages.map((image, index) => {
@@ -194,7 +194,7 @@ const ProductDetail = React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="inputEmail3" className="col-md-2 control-label">商品详情</label>
+                                <label htmlFor="inputEmail3" className="col-md-2 control-label">比赛详情</label>
                                 <div className="col-md-10" dangerouslySetInnerHTML={{__html: this.state.detail}}></div>
                             </div>
                         </div>
