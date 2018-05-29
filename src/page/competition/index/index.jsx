@@ -63,8 +63,8 @@ const CompetitionList = React.createClass({
         _competition.getCompetitionList(listParam).then(res => {
             console.log(res)
             this.setState(res);
-        }, err => {
-            _mm.errorTips(err.msg || err.statusText);
+        }, errMsg => {
+            _mm.errorTips(errMsg);
         });
     },
     // 搜索类型变化

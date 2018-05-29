@@ -36,7 +36,7 @@ render(
     <Router history={hashHistory}>
         <Route path="/">
             {/* home */} 
-            <IndexRedirect to="home" />
+            <IndexRedirect to="login" />
             <Route path="home" component={Layout}>
                 <IndexRedirect to="index" />
                 <Route path="index" component={Home}/>
