@@ -3,7 +3,7 @@
 
 const conf = {
     // online
-    // serverHost: 'http://admin.happymmall.com'
+    // serverHost: 'http://admin.programing.com'
     // dev
     serverHost: '',
     imageHost: 'http://image.programing.com/',

@@ -23,7 +23,7 @@ const OrderDetail = React.createClass({
         };
     },
     componentDidMount: function(){
-        // 初始化产品
+        // 初始化比赛
         this.loadOrderDetail();
     },
     // 加载detail信息
@@ -35,15 +35,6 @@ const OrderDetail = React.createClass({
         }, errMsg => {
             _mm.errorTips(errMsg);
         });
-    },
-    onSendGoods(){
-        if(confirm('是否确认该订单已发货？')){
-            _order.sendGoods(this.state.orderNumber).then(res => {
-                this.loadOrderDetail();
-            }, errMsg => {
-                _mm.errorTips(errMsg);
-            });
-        }
     },
     render() {
         let competitionList     = this.state.orderInfo.orderItemVoList  || [],
@@ -67,28 +58,10 @@ const OrderDetail = React.createClass({
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="subtitle" className="col-md-2 control-label">收件人：</label>
-                                <div className="col-md-5">
-                                    <p type="text" className="form-control-static">
-                                        {this.state.orderInfo.receiverName}，
-                                        {receiverInfo.receiverProvince} 
-                                        {receiverInfo.receiverCity}，
-                                        {receiverInfo.receiverAddress}，
-                                        {receiverInfo.receiverPhone}
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="form-group">
                                 <label htmlFor="subtitle" className="col-md-2 control-label">订单状态：</label>
                                 <div className="col-md-5">
                                     <p type="text" className="form-control-static">
                                         {this.state.orderInfo.statusDesc}
-                                        {
-                                            this.state.orderInfo.status == 20 
-                                                ? <a className="btn btn-sm btn-default btn-send-goods" onClick={this.onSendGoods}>立即发货</a>
-                                                : null
-                                        }   
-                                        
                                     </p>
                                 </div>
                             </div>
