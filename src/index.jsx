@@ -24,8 +24,8 @@ import ResultSave           from 'page/competition/index/result.jsx';
 import code                 from 'page/competition/index/code.jsx';
 import CompetitionCategory      from 'page/competition/category/index.jsx';
 import CompetitionCategoryAdd   from 'page/competition/category/add.jsx';
-import OrderList            from 'page/order/index.jsx';
-import OrderDetail          from 'page/order/detail.jsx';
+import ApplicationList            from 'page/application/index.jsx';
+import ApplicationDetail          from 'page/application/detail.jsx';
 import User                 from 'page/user/index.jsx';
 import Login                from 'page/login/index.jsx';
 import ErrorPage            from 'page/error/index.jsx';
@@ -57,11 +57,11 @@ render(
                 <Route path="add" component={CompetitionCategoryAdd}/>
             </Route>
 
-            {/* order */} 
-            <Route path="order" component={Layout}>
+            {/* application */} 
+            <Route path="application" component={Layout}>
                 <IndexRedirect to="index" />
-                <Route path="index" component={OrderList}/>
-                <Route path="detail/:orderNumber" component={OrderDetail}/>
+                <Route path="index" component={ApplicationList}/>
+                <Route path="detail/:applicationNumber" component={ApplicationDetail}/>
             </Route>
             {/* user */} 
             <Route path="user" component={Layout}>

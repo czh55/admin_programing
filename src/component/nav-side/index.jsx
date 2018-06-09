@@ -55,11 +55,11 @@ const SideNav = React.createClass({
                         <li>
                             <Link>
                                 <i className="fa fa-wrench fa-fw"></i>
-                                <span>订单</span>
+                                <span>报名</span>
                             </Link>
                             <ul className="nav nav-second-level collapse in">
                                 <li>
-                                    <Link to="/order" activeClassName="active">订单管理</Link>
+                                    <Link to="/application" activeClassName="active">报名管理</Link>
                                 </li>
                             </ul>
                         </li>

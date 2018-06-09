@@ -7,84 +7,83 @@ import { Link }     from 'react-router';
 import PageTitle    from 'component/page-title/index.jsx';
 
 import MMUtile      from 'util/mm.jsx';
-import Order        from 'service/order.jsx';
+import Application        from 'service/application.jsx';
 
 import './detail.scss';
 
 const _mm           = new MMUtile();
-const _order        = new Order();
+const _application        = new Application();
 
 
-const OrderDetail = React.createClass({
+const ApplicationDetail = React.createClass({
     getInitialState() {
         return {
-            orderNumber: this.props.params.orderNumber,
-            orderInfo : {}
+            applicationNumber: this.props.params.applicationNumber,
+            applicationInfo : {}
         };
     },
     componentDidMount: function(){
         // 初始化比赛
-        this.loadOrderDetail();
+        this.loadApplicationDetail();
     },
     // 加载detail信息
-    loadOrderDetail(){
-        _order.getOrderDetail(this.state.orderNumber).then(res => {
+    loadApplicationDetail(){
+        _application.getApplicationDetail(this.state.applicationNumber).then(res => {
             this.setState({
-                orderInfo: res
+                applicationInfo: res
             });
         }, errMsg => {
             _mm.errorTips(errMsg);
         });
     },
     render() {
-        let competitionList     = this.state.orderInfo.orderItemVoList  || [],
-            receiverInfo    = this.state.orderInfo.shippingVo       || {}
+        let competitionList     = this.state.applicationInfo.applicationItemVoList  || [],
+            receiverInfo    = this.state.applicationInfo.shippingVo       || {}
         return (
             <div id="page-wrapper">
-                <PageTitle pageTitle="订单详情"/>
+                <PageTitle pageTitle="报名详情"/>
                 <div className="row">
                     <div className="form-wrap col-lg-12">
                         <div className="form-horizontal">
                             <div className="form-group">
-                                <label htmlFor="name" className="col-md-2 control-label">订单号：</label>
+                                <label htmlFor="name" className="col-md-2 control-label">报名号：</label>
                                 <div className="col-md-5">
-                                    <p type="text" className="form-control-static">{this.state.orderInfo.orderNo}</p>
+                                    <p type="text" className="form-control-static">{this.state.applicationInfo.applicationNo}</p>
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="subtitle" className="col-md-2 control-label">创建时间：</label>
                                 <div className="col-md-5">
-                                    <p type="text" className="form-control-static">{this.state.orderInfo.createTime}</p>
+                                    <p type="text" className="form-control-static">{this.state.applicationInfo.createTime}</p>
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="subtitle" className="col-md-2 control-label">订单状态：</label>
+                                <label htmlFor="subtitle" className="col-md-2 control-label">报名状态：</label>
                                 <div className="col-md-5">
                                     <p type="text" className="form-control-static">
-                                        {this.state.orderInfo.statusDesc}
+                                        {this.state.applicationInfo.statusDesc}
                                     </p>
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="subtitle" className="col-md-2 control-label">支付方式：</label>
                                 <div className="col-md-5">
-                                    <p type="text" className="form-control-static">{this.state.orderInfo.paymentTypeDesc}</p>
+                                    <p type="text" className="form-control-static">{this.state.applicationInfo.paymentTypeDesc}</p>
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="subtitle" className="col-md-2 control-label">订单金额：</label>
+                                <label htmlFor="subtitle" className="col-md-2 control-label">报名金额：</label>
                                 <div className="col-md-5">
-                                    <p type="text" className="form-control-static">￥{this.state.orderInfo.payment}</p>
+                                    <p type="text" className="form-control-static">￥{this.state.applicationInfo.payment}</p>
                                 </div>
                             </div>
                             <div className="col-md-12">
-                                <table className="table table-striped table-bordered table-hover">
+                                <table className="table table-striped table-bapplicationed table-hover">
                                     <thead>
                                         <tr>
-                                            <th width="15%">商品图片</th>
-                                            <th width="40%">商品信息</th>
-                                            <th width="15%">单价</th>
-                                            <th width="15%">数量</th>
+                                            <th width="15%">比赛图片</th>
+                                            <th width="40%">比赛信息</th>
+                                            <th width="15%">报名费</th>
                                             <th width="15%">合计</th>
                                         </tr>
                                     </thead>
@@ -94,11 +93,10 @@ const OrderDetail = React.createClass({
                                                 return (
                                                     <tr key={index}>
                                                         <td>
-                                                            <img className="p-img" src={this.state.orderInfo.imageHost + competition.competitionImage} alt={competition.competitionName}/>
+                                                            <img className="p-img" src={this.state.applicationInfo.imageHost + competition.competitionImage} alt={competition.competitionName}/>
                                                         </td>
                                                         <td>{competition.competitionName}</td>
                                                         <td>￥{competition.currentUnitPrice}</td>
-                                                        <td>{competition.quantity}</td>
                                                         <td>￥{competition.totalPrice}</td>
                                                     </tr>
                                                 )
@@ -115,4 +113,4 @@ const OrderDetail = React.createClass({
     }
 });
 
-export default OrderDetail;
+export default ApplicationDetail;
